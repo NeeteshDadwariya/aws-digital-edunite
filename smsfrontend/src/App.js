@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import AddressForm from './AddressForm';
+import SubmitForm from './SubmitForm';
 
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
           <h2>HERE Geocoder Autocomplete Validation</h2>
         </div>
 
-        <AddressForm />
+        <SubmitForm />
 
       </div>
 

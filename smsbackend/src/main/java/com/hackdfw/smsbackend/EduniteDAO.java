@@ -20,8 +20,26 @@ public class EduniteDAO {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	public String getLatLong() throws URISyntaxException {
-		//String url = "https://geocode.search.hereapi.com/v1/geocode?q=850+Cecil+Drive%2C+75080+Richardson%2C+UnitedStates&apiKey=j67D_Yy62Osf-TgdcoUIP7Sx7-3_hHnZP9iv0Iq5814";
+	public BackendResponse getLatLong(String message) throws URISyntaxException {
+		
+		String[] arr = message.split(" ");
+		String tokenFinal = "";
+		for(String val:arr) {
+			tokenFinal+=val+"+";
+		}
+		
+		tokenFinal = tokenFinal.substring(0, tokenFinal.length()-1);
+		String url = "https://geocode.search.hereapi.com/v1/geocode?q=850+Cecil+Drive%2C+75080&apiKey=j67D_Yy62Osf-TgdcoUIP7Sx7-3_hHnZP9iv0Iq5814";
+
+		ResponseEntity<BackendResponse> response
+		  = restTemplate.getForEntity(url, BackendResponse.class);
+		
+		return response.getBody();
+	
+		  
+	}
+	
+	public String insertToAWS() throws URISyntaxException {
 		String url = "https://search-digitial-edunite-5tdptbluxc74mt34kxief37wve.us-east-1.es.amazonaws.com/my_locations/_search";
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -45,11 +63,9 @@ public class EduniteDAO {
 		
 		System.out.println("Latitude:" +responseEntity);
 		System.out.println("Longitude:" +responseEntity);
-
+		return url;
 		
-		return null;
-	
-		  
+		
 	}
 }
 

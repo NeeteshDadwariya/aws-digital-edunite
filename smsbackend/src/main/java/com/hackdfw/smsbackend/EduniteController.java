@@ -15,10 +15,9 @@ public class EduniteController {
 
     @GetMapping("/backendResults")
 	@ResponseBody
-	public String getBackendResults() throws URISyntaxException {
-    	eduniteDAO.getLatLong();
+	public BackendResponse getBackendResults(String message) throws URISyntaxException {
+    	return eduniteDAO.getLatLong(message);
     	
-		return "5 Results found for pincode 75080";
 	}
     
 }
