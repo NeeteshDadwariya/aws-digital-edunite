@@ -1,6 +1,8 @@
 package com.hackdfw.smsbackend;
 
 
+import java.net.URISyntaxException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,7 +15,7 @@ public class EduniteController {
 
     @GetMapping("/backendResults")
 	@ResponseBody
-	public String getBackendResults() {
+	public String getBackendResults() throws URISyntaxException {
     	eduniteDAO.getLatLong();
     	
 		return "5 Results found for pincode 75080";
