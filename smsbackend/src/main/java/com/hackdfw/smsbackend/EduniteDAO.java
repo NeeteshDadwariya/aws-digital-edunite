@@ -19,28 +19,24 @@ public class EduniteDAO {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	public BackendResponse getLatLong(String message) throws URISyntaxException {
-		
-		String[] arr = message.split(" ");
-		String tokenFinal = "";
-		for(String val:arr) {
-			tokenFinal+=val+"+";
-		}
-		
-		tokenFinal = tokenFinal.substring(0, tokenFinal.length()-1);
-		String url = "https://geocode.search.hereapi.com/v1/geocode?q=850+Cecil+Drive%2C+75080&apiKey=j67D_Yy62Osf-TgdcoUIP7Sx7-3_hHnZP9iv0Iq5814";
+	//String url = "https://geocode.search.hereapi.com/v1/geocode?q=850+Cecil+Drive%2C+75080&apiKey=j67D_Yy62Osf-TgdcoUIP7Sx7-3_hHnZP9iv0Iq5814";
+
+	
+	public BackendResponse getLatLongFinal(String url) {
 
 		ResponseEntity<BackendResponse> response
 		  = restTemplate.getForEntity(url, BackendResponse.class);
 		
-		getFromAWS();
-		
 		return response.getBody();
-	
-		  
 	}
 	
-	public String getFromAWS() throws URISyntaxException {
+	public String getFromAWS(String message) throws URISyntaxException {
+		
+		//generate lat long from sms address
+		String hereUrl = "https://geocode.search.hereapi.com/v1/geocode?q=850+Cecil+Drive%2C+75080&apiKey=j67D_Yy62Osf-TgdcoUIP7Sx7-3_hHnZP9iv0Iq5814";
+		BackendResponse resp = getLatLongFinal(hereUrl);
+		
+	
 		String url = "https://search-digitial-edunite-5tdptbluxc74mt34kxief37wve.us-east-1.es.amazonaws.com/my_locations/_search";
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -92,7 +88,7 @@ public class EduniteDAO {
 		
 
 		String message = "https://geocode.search.hereapi.com/v1/geocode?q="+tokenFinalStreet+"%2C+"+hub.getPostalCode()+"&apiKey=j67D_Yy62Osf-TgdcoUIP7Sx7";
-		BackendResponse response = getLatLong(message);
+		BackendResponse response = getLatLongFinal(message);
 		UpdateHubsPojo hubInformation = new UpdateHubsPojo();
 		hubInformation.getPin().getUpdateLocation().setLat(response.getFeatures().get(0).getProperties().getLat());
 		hubInformation.getPin().getUpdateLocation().setLon(response.getFeatures().get(0).getProperties().getLng());

@@ -14,7 +14,7 @@ public class EduniteController {
     @GetMapping("/backendResults")
 	@ResponseBody
 	public BackendResponse getBackendResults(String message) throws URISyntaxException {
-    	return eduniteDAO.getLatLong(message);
+    	return eduniteDAO.getFromAWS(message);
 
 	}
 
