@@ -5,11 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -67,5 +63,72 @@ public class EduniteDAO {
 		
 		
 	}
+
+	public int countHub() throws URISyntaxException {
+
+		String url = "https://search-digitial-edunite-5tdptbluxc74mt34kxief37wve.us-east-1.es.amazonaws.com/my_locations/_search";
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.add("Authorization", "Basic ZWR1bml0ZTpFZHVuaXRlIzEyMw==");
+		HttpEntity<String> entity = new HttpEntity<>("foo",headers);
+		URI uri = null;
+
+		uri = UriComponentsBuilder
+				.fromUri(new URI(url))
+				.build()
+				.encode()
+				.toUri();
+		ResponseEntity<Total> responseEntity = restTemplate.exchange(uri,
+				HttpMethod.GET,
+				entity,
+				Total.class
+		);
+		System.out.println(responseEntity);
+		return 3;
+	}
+
+	public String putHub(Hubs hub) throws URISyntaxException {
+
+		String tokenFinal = "";
+		String[] arr = hub.getStreet().split(" ");
+		for(String val:arr) {
+			tokenFinalStreet+=val+"+";
+		}
+
+		String message = "https://geocode.search.hereapi.com/v1/geocode?q=850+Cecil+Drive%2C+75080&apiKey=j67D_Yy62Osf-TgdcoUIP7Sx7";
+		BackendResponse response = getLatLong(message);
+		String url = "https://search-digitial-edunite-5tdptbluxc74mt34kxief37wve.us-east-1.es.amazonaws.com/my_locations/_doc/_4";
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<String> entity = new HttpEntity<>("foo",headers);
+		URI uri = null;
+
+		uri = UriComponentsBuilder
+				.fromUri(new URI(url))
+				.build()
+				.encode()
+				.toUri();
+		ResponseEntity<BackendResponse> responseEntity = restTemplate.exchange(uri,
+				HttpMethod.PUT,
+				entity,
+				BackendResponse.class
+		);
+
+		System.out.println(responseEntity);
+		return "a";
+	}
+
+	/* PUT /my_locations/_doc/1
+	{
+		"pin": {
+		"location": {
+			"lat": 40.12,
+					"lon": -71.34
+		}
+	}
+	} */
 }
 
