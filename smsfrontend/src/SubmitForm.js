@@ -1,42 +1,85 @@
 import React, { Component } from 'react';
-import styled from "@emotion/styled";
 import axios from "axios"; 
-const Container = styled.div`
-  margin-top: 150px;
-`;
-class SubmitForm extends Component {
+
+export default class SubmitForm extends React.Component {
   state = {
     name: '',
-  };
-/* This is where the magic happens 
-*/
-handleSubmit = event => {
+    street: '',
+    city: '',
+    postal:'',
+    availability: ''
+  }
+
+  handleNameChange = event => {
+    this.setState({ name: event.target.value });
+  }
+
+  handleStreetChange = event => {
+    this.setState({ street: event.target.value });
+  }
+
+  handleCityChange = event => {
+    this.setState({ city: event.target.value });
+  }
+
+  handleAvailabilityChange = event => {
+    this.setState({ postal: event.target.value });
+  }
+
+  handlePostalChange = event => {
+    this.setState({ availability: event.target.value });
+  }
+
+  handleSubmit = event => {
     event.preventDefault();
+
     const user = {
-      name: this.state.name
-    }
-    axios.post('https://jsonplaceholder.typicode.com/users', { user })
-      .then(res=>{
+      name: this.state.name,
+      street: this.state.street,
+      city: this.state.city,
+      postal: this.state.postal,
+      availability: this.state.availability
+    };
+
+    axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
+      .then(res => {
         console.log(res);
         console.log(res.data);
-        window.location = "/retrieve" //This line of code will redirect you once the submission is succeed
       })
   }
-handleChange = event =>{
-    this.setState({ name: event.target.value});
-  }
-render() {
+
+  render() {
     return (
-      <Container>
-        
-        <form onSubmit = { this.handleSubmit }>
-          <label> Person Name:
-            <input type = "text" name = "name" onChange= {this.handleChange}/>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Street No.:
+            <input type="text" name="name" onChange={this.handleNameChange} />
           </label>
-          <button type = "submit"> Add </button>
+            <br/> <br/>
+          <label>
+            Street Name:
+            <input type="text" name="street" onChange={this.handleStreetChange} />
+          </label>
+          <br/> <br/>
+          <label>
+            City:
+            <input type="text" name="city" onChange={this.handleCityChange} />
+          </label>
+          <br/> <br/>
+          <label>
+            Postal Code:
+            <input type="text" name="postal" onChange={this.handlePostalChange} />
+          </label>
+          <br/> <br/>
+          <label>
+            Availability:
+            <input type="text" name="availability" onChange={this.handleAvailabilityChange} />
+          </label>
+          <br/> <br/>
+          <button type="submit">Add</button>
         </form>
-    </Container>
-    );
+      </div>
+    )
   }
 }
-export default SubmitForm;
