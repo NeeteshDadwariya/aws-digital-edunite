@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EduniteApplication<smsbackend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.hackdfw.smsbackend.EduniteApplication",
+            "projectName": "smsbackend",
+            "args": ""
+        }
+    ]
+}
