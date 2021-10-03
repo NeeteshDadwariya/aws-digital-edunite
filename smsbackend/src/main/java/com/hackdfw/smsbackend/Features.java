@@ -1,7 +1,9 @@
 package com.hackdfw.smsbackend;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Features {
 	@JsonProperty("position")
 	private Properties properties;
