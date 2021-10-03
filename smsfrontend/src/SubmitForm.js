@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from "axios"; 
+import axios from "axios";
+import {Button, Form, Col, Row} from 'react-bootstrap';
 
 export default class SubmitForm extends React.Component {
   state = {
@@ -50,36 +51,56 @@ export default class SubmitForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Street No.:
-            <input type="text" name="name" onChange={this.handleNameChange} />
-          </label>
-            <br/> <br/>
-          <label>
-            Street Name:
-            <input type="text" name="street" onChange={this.handleStreetChange} />
-          </label>
-          <br/> <br/>
-          <label>
-            City:
-            <input type="text" name="city" onChange={this.handleCityChange} />
-          </label>
-          <br/> <br/>
-          <label>
-            Postal Code:
-            <input type="text" name="postal" onChange={this.handlePostalChange} />
-          </label>
-          <br/> <br/>
-          <label>
-            Availability:
-            <input type="text" name="availability" onChange={this.handleAvailabilityChange} />
-          </label>
-          <br/> <br/>
-          <button type="submit">Add</button>
-        </form>
-      </div>
+        <Form>
+            <Form.Group as={Row}>
+                <Form.Label column sm={2}>
+                Street No.:
+                </Form.Label>
+                    <Col sm={2}>
+                    <Form.Control type="text" name="name" placeHolder="Enter Street No." onChange={this.handleNameChange} />
+                    </Col>
+            </Form.Group>
+            <br/>
+            <Form.Group as={Row}>
+                <Form.Label column sm={2}>
+                    Street Name:
+                </Form.Label>
+                <Col sm={2}>
+                    <Form.Control type="text" name="street" placeHolder="Enter Street Name" onChange={this.handleStreetChange} />
+                </Col>
+            </Form.Group>
+            <br/>
+            <Form.Group as={Row}>
+                <Form.Label column sm={2}>
+                    City:
+                </Form.Label>
+                <Col sm={2}>
+                    <Form.Control type="text" name="city" placeHolder="Enter City Name" onChange={this.handleCityChange} />
+                </Col>
+            </Form.Group>
+            <br/>
+            <Form.Group as={Row}>
+                <Form.Label column sm={2}>
+                    Postal Code:
+                </Form.Label>
+                <Col sm={2}>
+                    <Form.Control type="text" name="postal" placeHolder="Enter Postal Code" onChange={this.handlePostalChange} />
+                </Col>
+            </Form.Group>
+            <br/>
+            <Form.Group as={Row}>
+                <Form.Label column sm={2}>
+                    Availability:
+                </Form.Label>
+                <Col sm={2}>
+                    <Form.Control type="text" name="availability" placeHolder="Enter free systems" onChange={this.handleAvailabilityChange} />
+                </Col>
+            </Form.Group>
+            <br/>
+            <Col sm={2}>
+                <Button variant="dark" type="submit">Add</Button>
+            </Col>
+        </Form>
     )
   }
 }
