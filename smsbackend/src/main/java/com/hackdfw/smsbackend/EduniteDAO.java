@@ -32,11 +32,6 @@ public class EduniteDAO {
                 = restTemplate.getForEntity(finalUrl, BackendResponse.class);
         return response.getBody();
 
-
-        //Try with Google API
-        /*String googleUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=AIzaSyB8XHfMGo7dtvzcpRFmjSROO3GnvnZlc1Y";
-        String finalUrl = String.format(googleUrl, addr);*/
-
     }
 
     public String getEduHubDetailsByLocation(String message) throws Exception {
